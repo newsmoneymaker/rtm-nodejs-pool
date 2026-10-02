@@ -1,0 +1,17 @@
+[Unit]
+Description=Raptoreum pool: charts data collector (hash rate, difficulty, miners, workers on the home page)
+After=rtm-pool-redis.service rtm-pool-api.service
+Requires=rtm-pool-redis.service
+[Service]
+Type=simple
+User=rtmpool
+WorkingDirectory=/opt/rtm-nodejs-pool
+ExecStart=/usr/bin/node /opt/rtm-nodejs-pool/init.js -module=chartsDataCollector
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

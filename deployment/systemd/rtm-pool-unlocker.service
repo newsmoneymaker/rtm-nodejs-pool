@@ -1,0 +1,17 @@
+[Unit]
+Description=Raptoreum pool: block unlocker (credits the miners after the coinbase maturity)
+After=rtm-pool-redis.service rtm-node.service
+Requires=rtm-pool-redis.service
+[Service]
+Type=simple
+User=rtmpool
+WorkingDirectory=/opt/rtm-nodejs-pool
+ExecStart=/usr/bin/node /opt/rtm-nodejs-pool/init.js -module=unlocker
+Restart=always
+RestartSec=15
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

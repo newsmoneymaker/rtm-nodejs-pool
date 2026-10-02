@@ -1,0 +1,19 @@
+[Unit]
+Description=Raptoreum node (raptoreumd): the chain, the block templates and the pool wallet
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=rtmpool
+# raptoreum.conf: server=1, listen=1, rpcuser/rpcpassword, rpcbind=127.0.0.1, rpcport=1157, port=1155, addnode=<peers>, see docs/INSTALL.md
+ExecStart=/opt/rtm/bin/raptoreumd -datadir=/opt/rtm/data -conf=/opt/rtm/data/raptoreum.conf -printtoconsole
+Restart=on-failure
+RestartSec=30
+LimitNOFILE=65536
+TimeoutStopSec=180
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
